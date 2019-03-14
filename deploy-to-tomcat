@@ -1,16 +1,16 @@
 node{
-   def tomcatIp = '172.31.14.131'
+   def tomcatIp = '172.31.8.2'
    def tomcatUser = 'ec2-user'
    def stopTomcat = "ssh ${tomcatUser}@${tomcatIp} /opt/tomcat8/bin/shutdown.sh"
    def startTomcat = "ssh ${tomcatUser}@${tomcatIp} /opt/tomcat8/bin/startup.sh"
    def copyWar = "scp -o StrictHostKeyChecking=no target/myweb.war ${tomcatUser}@${tomcatIp}:/opt/tomcat8/webapps/"
    stage('SCM Checkout'){
         git branch: 'master', 
-	        credentialsId: 'javahometech',
-	        url: 'https://github.com/javahometech/myweb'
+	        credentialsId: 'reachsatyabrata',
+	        url: 'https://github.com/reachsatyabrata/myweb'
    }
    stage('Maven Build'){
-        def mvnHome = tool name: 'maven3', type: 'maven'
+        def mvnHome = tool name: 'mvn', type: 'maven'
 		sh "${mvnHome}/bin/mvn clean package"
    }
    
